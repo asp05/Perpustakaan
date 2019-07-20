@@ -45,6 +45,22 @@
         <input type="text" name="password" class="form-control" placeholder="Password">
         <?=form_error('password','<small class="text-danger">','</small>') ?>
       </div>
+      <div class="form-group has-feedback">
+        <select name="kelas" class="form-control">
+          <option></option>
+          <?php foreach ($kelas as $x): ?>
+            <option <?=$x->id_kelas?> ><?=$x->nama_kelas?></option>
+          <?php endforeach ?>
+        </select>
+        <small class="text-danger">Jika bukan siswa kosongkan saja</small>
+      </div><div class="form-group has-feedback">
+        <select class="form-control" name="status">
+          <option></option>
+          <?php foreach ($status as $x): ?>
+            <option <?=$x->id_status?>><?=$x->nama_status?></option>
+          <?php endforeach ?>
+        </select>
+      </div>
       <div class="row">
         <!-- /.col -->
         <div class="col-xs-12">
@@ -52,7 +68,8 @@
         </div>
         <!-- /.col -->
       </div>
-    </form>
+    </form><br>
+    <a href="<?php echo base_url('login') ?>">Sudah punya akun</a>
   </div>
   <!-- /.login-box-body -->
 </div>

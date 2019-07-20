@@ -53,7 +53,8 @@
         </div>
         <!-- /.col -->
       </div>
-    </form>
+    </form><br>
+    <a href="<?php echo base_url('login/daftar') ?>">belum punya akun</a>
   </div>
   <!-- /.login-box-body -->
 </div>

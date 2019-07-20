@@ -15,16 +15,24 @@ class Login extends CI_Controller {
 			$nama 		= $this->input->post('nama');
 			$password	= $this->input->post('password');
 			
-			$user		= $this->mod_crud->get_where('admin',['nama_admin' => $nama])->row_array();
+			$user		= $this->mod_crud->get_where('tbl_user',['nama_user' => $nama])->row_array();
 			if ($user) {
-				if (password_verify($password, $user['password'])) {
+				if ($user['status'] == 1) {
+					$this->session->set_flashdata('berhasil_daftar', '<div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4><i class="icon fa fa-check"></i> Alert!</h4>Anda belum verivikasi ke admin
+              </div>');
+					$this->load->view('login');
+				}else{
+					if (password_verify($password, $user['password'])) {
 					$data = array(
 						'nama_admin' => $user['nama_admin']
 					);
 					$this->session->set_userdata( $data );
-					redirect('home_admin');
+					echo 'berhasil';
 				}else{
 					echo "v";
+				}
 				}
 			}else{
 				echo 'gagal';
@@ -46,19 +54,20 @@ class Login extends CI_Controller {
 	public function daftar(){
 		$this->auth();
 		if ($this->form_validation->run() == false) {
-			$this->load->view('daftar');
+			$data['kelas']	= $this->mod_crud->get('tbl_kelas')->result();
+			$data['status']	= $this->mod_crud->get('tbl_status')->result();
+			$this->load->view('daftar',$data);
 		}else{
 			$data = array(
-				'nama_admin'	=> $this->input->post('nama'),
+				'nama_user'		=> $this->input->post('nama'),
 				'password'		=> password_hash($this->input->post('password'), PASSWORD_DEFAULT),
-				'waktu_masuk'	=> date('Y-m-d'),
-				'gambar'		=> 'avatar5.png'	
+				'kelas'			=> $this->input->post('kelas'),
+				'status'		=> $this->input->post('status'),
 			);
-			$this->mod_crud->insert('admin',$data);
+			$this->mod_crud->insert('tbl_user',$data);
 			$this->session->set_flashdata('berhasil_daftar', '<div class="alert alert-success alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <h4><i class="icon fa fa-check"></i> Alert!</h4>
-                Success alert preview. This alert is dismissable.
+                <h4><i class="icon fa fa-check"></i> Alert!</h4>anda berhasil daftar
               </div>');
 			redirect('login');
 		}
