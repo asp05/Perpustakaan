@@ -30,31 +30,34 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="<?php echo base_url() ?>assets/index2.html"><b>Sekolah</b>KU</a>
+    <a href=""><b>Admin</b>LTE</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">login admin sekolah</p>
-    <?=$this->session->flashdata('berhasil_daftar'); ?>
+    <p class="login-box-msg">Login untuk meminjam buku</p>
 
-    <form action="<?php echo base_url('login') ?>" method="POST">
+    <?= $this->session->flashdata('berhasil'); ?>
+    <?= $this->session->flashdata('gagal'); ?>
+
+    <form action="<?php echo base_url('login/index') ?>" method="post">
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" name="nama" placeholder="nama">
-        <?=form_error('nama','<small class="text-danger">','</small>') ?>
+        <input type="text" name="nama" class="form-control" placeholder="username">
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="text" name="password" class="form-control" placeholder="Password">
-        <?=form_error('password','<small class="text-danger">','</small>') ?>
+        <input type="password" name="password" class="form-control" placeholder="Password">
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
         <!-- /.col -->
         <div class="col-xs-12">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Masuk</button>
+          <button type="submit" class="btn btn-primary btn-block ">Masuk</button>
         </div>
         <!-- /.col -->
       </div>
     </form><br>
-    <a href="<?php echo base_url('login/daftar') ?>">belum punya akun</a>
+    <a href="<?php echo base_url('login/daftar') ?>" class="text-center">Daftar akun</a>
+
   </div>
   <!-- /.login-box-body -->
 </div>
@@ -65,6 +68,5 @@
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url() ?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- iCheck -->
-<script src="<?php echo base_url() ?>assets/plugins/iCheck/icheck.min.js"></script>
 </body>
 </html>

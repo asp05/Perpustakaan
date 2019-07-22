@@ -3,9 +3,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Mod_crud extends CI_Model {
 
+	public function get_limit($no,$tabel){
+		$this->db->limit($no);
+		return $this->db->get($tabel);
+	}
 	public function get($tabel){
 		return $this->db->get($tabel);
-	}	
+	}
 	public function get_where($table,$id){
 		return $this->db->get_where($table,$id);
 	}
@@ -15,6 +19,14 @@ class Mod_crud extends CI_Model {
 		}else{
 			return false;
 		}
+	}
+	public function delete($table,$id){
+		$this->db->where($id);
+		return $this->db->delete($table);
+	}
+	public function edit($tabel,$data,$id){
+		$this->db->where($id);
+		return $this->db->update($tabel, $data);
 	}
 
 }

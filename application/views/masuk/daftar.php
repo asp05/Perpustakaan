@@ -30,46 +30,40 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="<?php echo base_url() ?>assets/index2.html"><b>Sekolah</b>KU</a>
+    <a href=""><b>Admin</b>LTE</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">daftar admin sekolah</p>
+    <p class="login-box-msg">daftar untuk meminjam buku</p>
 
-    <form action="<?php echo base_url('login/daftar') ?>" method="POST">
+    <form action="<?php echo base_url('login/daftar') ?>" method="post">
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" name="nama" placeholder="nama">
-        <?=form_error('nama','<small class="text-danger">','</small>') ?>
+        <input type="text" name="nama" class="form-control" placeholder="username">
+        <?= form_error('nama','<small class="text-danger">','</small>') ?>
       </div>
       <div class="form-group has-feedback">
-        <input type="text" name="password" class="form-control" placeholder="Password">
-        <?=form_error('password','<small class="text-danger">','</small>') ?>
+        <input type="password" name="password" class="form-control" placeholder="Password">
+        <?= form_error('password','<small class="text-danger">','</small>') ?>
       </div>
       <div class="form-group has-feedback">
-        <select name="kelas" class="form-control">
+        <select name="status" class="form-control">
           <option></option>
-          <?php foreach ($kelas as $x): ?>
-            <option <?=$x->id_kelas?> ><?=$x->nama_kelas?></option>
-          <?php endforeach ?>
-        </select>
-        <small class="text-danger">Jika bukan siswa kosongkan saja</small>
-      </div><div class="form-group has-feedback">
-        <select class="form-control" name="status">
-          <option></option>
-          <?php foreach ($status as $x): ?>
-            <option <?=$x->id_status?>><?=$x->nama_status?></option>
-          <?php endforeach ?>
+          <?php foreach($status as $x): ?>
+            <option value="<?=$x->id_status ?>"><?=$x->nama_status?></option>
+          <?php endforeach;?>
         </select>
       </div>
       <div class="row">
         <!-- /.col -->
         <div class="col-xs-12">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Masuk</button>
+          <button type="submit" class="btn btn-primary btn-block ">Sign In</button>
         </div>
         <!-- /.col -->
       </div>
     </form><br>
-    <a href="<?php echo base_url('login') ?>">Sudah punya akun</a>
+    <!-- /.social-auth-links -->
+    <a href="<?php echo base_url('login') ?>" class="text-center">Login</a>
+
   </div>
   <!-- /.login-box-body -->
 </div>
@@ -80,6 +74,5 @@
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url() ?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- iCheck -->
-<script src="<?php echo base_url() ?>assets/plugins/iCheck/icheck.min.js"></script>
 </body>
 </html>

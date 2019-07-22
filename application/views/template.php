@@ -14,6 +14,8 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/bower_components/Ionicons/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/dist/css/AdminLTE.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/dist/css/skins/_all-skins.min.css">
@@ -28,6 +30,9 @@
   <!-- penutup -->
   <!-- jQuery 3 -->
   <script src="<?php echo base_url(); ?>assets/bower_components/jquery/dist/jquery.min.js"></script>
+  <!-- DataTables -->
+  <script src="<?php echo base_url() ?>assets/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script src="<?php echo base_url() ?>assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
   <!-- Bootstrap 3.3.7 -->
   <script src="<?php echo base_url(); ?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <!-- SlimScroll -->
@@ -72,16 +77,16 @@
           <!-- Akun pengguna ,profil pengguna -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="<?php echo base_url('assets/dist/img/'); ?>" class="user-image" alt="User Image">
-              <span class="hidden-xs"></span>
+              <img src="<?php echo base_url('assets/dist/img/'.$admin['gambar']); ?>" class="user-image" alt="User Image">
+              <span class="hidden-xs"><?=$admin['nama_admin']?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="<?php echo base_url('assets/dist/img/'); ?>" class="img-circle" alt="User Image">
+                <img src="<?php echo base_url('assets/dist/img/'.$admin['gambar']); ?>" class="img-circle" alt="User Image">
 
                 <p>
-                  <small>Admin Sejak </small>
+                  <?= $admin['nama_admin'] ?>
                 </p>
               </li>
               <!-- Menu Footer-->
@@ -110,17 +115,17 @@
       <!-- Sidebar akun header -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="<?php echo base_url('assets/dist/img/'); ?>" class="img-circle" alt="User Image">
+          <img src="<?php echo base_url('assets/dist/img/'.$admin['gambar']); ?>" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p></p>
+          <p><?= $admin['nama_admin'] ?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
       <!-- Menu sidebar -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Menu Admin</li>
-        <li class="treeview <?=$this->uri->segment(2) == 'index' ? 'active' : '' ?>">
+        <li class="treeview <?=$this->uri->segment(3) == 'index' ? 'active' : '' ?>">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             <span class="pull-right-container">
@@ -128,20 +133,29 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li <?=$this->uri->segment(2) == 'index' ? 'class = active' : '' ?>><a href="<?php echo base_url('home_admin/index'); ?>"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+            <li <?=$this->uri->segment(3) == 'index' ? 'class = active' : '' ?>><a href="<?php echo base_url('admin/home_admin/index'); ?>"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
           </ul>
         </li>
-        <li class="treeview <?=$this->uri->segment(2) == 'fixed' ? 'active' : '' ?>">
+        <li class="treeview <?=$this->uri->segment(2) == 'pengguna' ? 'active' : '' ?>">
           <a href="#">
-            <i class="fa fa-files-o"></i>
-            <span>Master Siswa</span>
+            <i class="fa fa-user"></i> <span>Pengguna</span>
             <span class="pull-right-container">
-              <span class="label label-primary pull-right">4</span>
+              <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li <?=$this->uri->segment(2)== 'fixed' ? 'class = active' : '' ?> ><a href="<?php echo base_url('home_admin/fixed') ?>"><i class="fa fa-circle-o"></i> Daftar Siswa</a></li>
-            <li <?=$this->uri->segment(2) == 'verifikasi' ? 'class = active' : '' ?>><a href="<?echo base_url('home_admin/belum_registrasi')?>"><i class="fa fa-circle-o"></i> Verivikasi siwa</a></li>
+            <li <?=$this->uri->segment(2) == 'pengguna' ? 'class = active' : '' ?>><a href="<?php echo base_url('admin/pengguna'); ?>"><i class="fa fa-circle-o"></i> Pengguna</a></li>
+          </ul>
+        </li>
+        <li class="treeview <?=$this->uri->segment(2) == 'buku' ? 'active' : '' ?>">
+          <a href="#">
+            <i class="fa fa-book"></i> <span>Buku</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li <?=$this->uri->segment(2) == 'Buku' ? 'class = active' : '' ?>><a href="<?php echo base_url('admin/buku'); ?>"><i class="fa fa-circle-o"></i> Buku</a></li>
           </ul>
         </li>
       </ul>
@@ -157,13 +171,13 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Daftar Siswa
-        <small>daftar siswa Smk n 3 Banjar</small>
+        <?=$title ?>
+        <small>perpus Smk n 3 Banjar</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="<?= base_url('home_admin') ?>"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="">Layout</a></li>
-        <li class="active">Fixed</li>
+        <li class="active"><?=$title; ?></li>
       </ol>
     </section>
 
